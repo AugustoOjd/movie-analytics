@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNewUser = exports.getTest = void 0;
 const user_service_1 = __importDefault(require("../services/user.service"));
+const instance = new user_service_1.default();
 const getTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.send('Hello world');
@@ -26,8 +27,8 @@ exports.getTest = getTest;
 const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, email, password } = req.body;
     try {
-        const instance = new user_service_1.default();
         const newUser = yield instance.createNewUserService(firstName, email, password);
+        req.session.user = newUser;
         res.status(201).json({
             status: 'Sucess',
             payload: newUser

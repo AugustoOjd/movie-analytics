@@ -16,7 +16,6 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_1 = __importDefault(require("express"));
 const express_session_1 = __importDefault(require("express-session"));
-const user_router_1 = __importDefault(require("./routes/user.router"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -25,6 +24,8 @@ const user_table_1 = require("./db/models/user.table");
 const movie_table_1 = require("./db/models/movie.table");
 const soldHistory_table_1 = require("./db/models/soldHistory.table");
 const interactions_table_1 = require("./db/models/interactions.table");
+const user_router_1 = __importDefault(require("./routes/user.router"));
+const movie_router_1 = __importDefault(require("./routes/movie.router"));
 const app = (0, express_1.default)();
 const port = 8080;
 app.use(express_1.default.json());
@@ -40,6 +41,7 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 // routes
 app.use('/api/user', user_router_1.default);
+app.use('/api/movie', movie_router_1.default);
 // dbconnection
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

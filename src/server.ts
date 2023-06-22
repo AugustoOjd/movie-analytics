@@ -7,7 +7,6 @@ declare module 'express-session' {
       user: { [key: string]: any };
     }
   }
-import userRouter from './routes/user.router'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -18,6 +17,8 @@ import { Movie } from './db/models/movie.table'
 import { SoldHistory } from './db/models/soldHistory.table'
 import { Interactions } from './db/models/interactions.table'
 
+import userRouter from './routes/user.router'
+import movieRouter from './routes/movie.router'
 
 const app = express()
 const port = 8080
@@ -36,6 +37,7 @@ app.use(bodyParser.json())
 
 // routes
 app.use('/api/user', userRouter)
+app.use('/api/movie', movieRouter)
 
 // dbconnection
 

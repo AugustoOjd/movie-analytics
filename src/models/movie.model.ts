@@ -1,6 +1,4 @@
-import { Movie } from "../db/models/movie.table";
-import { IMovie } from "../interfaces/IMovie";
-import CustomError from "./customError.model";
+import { IMovie, TCategory } from "../interfaces/IMovie";
 
 
 export default class MovieModel implements IMovie {
@@ -8,32 +6,31 @@ export default class MovieModel implements IMovie {
     title:          string
     description:    string
     price:          number
-    category:       string
+    category:       TCategory
     release:        string
     image:          string
     premium:        boolean
     duration:       string
-    seasons:        string
+    seasons:        number
 
     constructor(){
         this.title=''      
         this.description=''
         this.price=0      
-        this.category=''   
+        this.category='action'   
         this.release=''    
         this.image=''      
         this.premium=false    
         this.duration=''   
-        this.seasons=''   
+        this.seasons=1   
     }
 
 
-    async createFreeMovie(title: string, description: string, price: number, category: string, release: string, image: string, duration: string, seasons: string){
-        try {
+    createFreeMovie(title: string, description: string, category: TCategory, release: string, image: string, duration: string, seasons: number){
             const movie: IMovie = {
                 title,
                 description,
-                price,
+                price: this.price,
                 category,
                 release,
                 image,
@@ -42,17 +39,24 @@ export default class MovieModel implements IMovie {
                 seasons
             }
 
-            const data = await Movie.create({...movie})
-        } catch (error) {
-        }
+            return movie
     }
 
-    async createPremiumMovie(){
-        try {
+    createPremiumMovie(title: string, description: string, price: number, category: TCategory, release: string, image: string, duration: string, seasons: number){
             
-        } catch (error) {
-
-        }
+        const movie: IMovie = {
+                title,
+                description,
+                price,
+                category,
+                release,
+                image,
+                premium: true,
+                duration,
+                seasons
+            }
+            
+            return movie
     }
 
 
