@@ -20,6 +20,10 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const pgConnection_1 = require("./db/pgConnection");
+const user_table_1 = require("./db/models/user.table");
+const movie_table_1 = require("./db/models/movie.table");
+const soldHistory_table_1 = require("./db/models/soldHistory.table");
+const interactions_table_1 = require("./db/models/interactions.table");
 const user_router_1 = __importDefault(require("./routes/user.router"));
 const movie_router_1 = __importDefault(require("./routes/movie.router"));
 const app = (0, express_1.default)();
@@ -42,10 +46,10 @@ app.use('/api/movie', movie_router_1.default);
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield pgConnection_1.sequelize.authenticate();
-        // await User.sync()
-        // await Movie.sync()
-        // await SoldHistory.sync()
-        // await Interactions.sync()
+        yield user_table_1.User.sync();
+        yield movie_table_1.Movie.sync();
+        yield soldHistory_table_1.SoldHistory.sync();
+        yield interactions_table_1.Interactions.sync();
         // await User.sync({force: true})
         // await Movie.sync({force: true})
         // await SoldHistory.sync({force: true})

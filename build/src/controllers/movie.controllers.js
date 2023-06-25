@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMovieById = exports.createMovie = exports.getMovies = void 0;
+exports.getMovieById = exports.getHello = exports.createMovie = exports.getMovies = void 0;
 const movie_service_1 = __importDefault(require("../services/movie.service"));
 const instace = new movie_service_1.default();
 const getMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,6 +53,10 @@ const createMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.createMovie = createMovie;
+const getHello = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send('hello world');
+});
+exports.getHello = getHello;
 const getMovieById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
@@ -63,6 +67,7 @@ const getMovieById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             status: 'Success',
             payload: movie
         });
+        res.send('hello world');
     }
     catch (error) {
         res.json(error);

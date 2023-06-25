@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import MovieService from '../services/movie.service'
+import { Movie } from '../db/models/movie.table'
 
 const instace = new MovieService()
 
@@ -44,6 +45,9 @@ export const createMovie = async (req: Request, res: Response)=>{
     }
 }
 
+export const getHello= async (req: Request, res: Response)=>{
+    res.send('hello world')
+}
 
 export const getMovieById = async (req: Request, res: Response)=>{
     const {id} = req.params
@@ -58,6 +62,7 @@ export const getMovieById = async (req: Request, res: Response)=>{
             status: 'Success',
             payload: movie
         })
+        res.send('hello world')
     } catch (error) {
         res.json(error)
     }

@@ -81,7 +81,7 @@ describe('Movie Api', ()=>{
 
     it('get by id movie /api/movie', async ()=>{
 
-        const resp = await request(app).get(`/api/movie/1`)
+        const resp = await request(app).get(`/api/movie/detail/1`)
 
         expect(resp.status).toBe(200)
         expect(resp.headers['content-type']).toContain('json')
