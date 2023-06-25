@@ -45,18 +45,18 @@ const dbConnection = async () =>{
     try {
         await sequelize.authenticate();
 
-        await User.sync()
-        await Movie.sync()
-        await SoldHistory.sync()
-        await Interactions.sync()
+        // await User.sync()
+        // await Movie.sync()
+        // await SoldHistory.sync()
+        // await Interactions.sync()
 
         // await User.sync({force: true})
         // await Movie.sync({force: true})
         // await SoldHistory.sync({force: true})
         // await Interactions.sync({force: true})
-        console.log('Connection has been established successfully.');
+        // console.log('Connection has been established successfully.');
       } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        // console.log('Unable to connect to the database:', error);
       }
 }
 dbConnection()

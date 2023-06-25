@@ -131,8 +131,20 @@ export default class MovieService {
         }
     }
 
-    async getMovieById(){
+    async getMovieById(id: number){
+        try {
+            
+            if(!id) throw new CustomError('client error', 404, 'id undefined', false)
 
+            const movie = await Movie.findByPk(id)
+            console.log(movie)
+            if(!movie) throw new CustomError('client error', 404, 'id not found', false)
+
+            return movie
+
+        } catch (error) {
+            throw error
+        }
     }
 
     async updateMovie(){
