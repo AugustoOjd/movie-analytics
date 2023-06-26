@@ -28,23 +28,37 @@ describe('User Api', function() {
   })
 
   
-  it('Get api/user with 200', ()=> {
-    request(app)
-      .get('/api/user')
-      .expect(200);
+  it('Get users api/user', async ()=> {
+    const resp = await request(app).get('/api/user')
+
+    expect(resp.status).toBe(200)
+    expect(resp.headers['content-type']).toContain('json')
+    expect(resp.body.payload).toBeDefined()
+
   });
 
-  it('Register user /api/user', async ()=>{
+  it('Register user /api/user/signup', async ()=>{
     
-    const resp= await request(app).post('/api/user').send(userMock)
+    const resp= await request(app).post('/api/user/signup').send(userMock)
     
       expect(resp.status).toBe(201)
+      expect(resp.headers['content-type']).toContain('json')
       expect(resp.body.payload.firstName).toBe(userMock.firstName)
       expect(resp.body.payload.email).toBe(userMock.email)
       expect(resp.body.payload.role).toBe('user')
       expect(resp.body.payload.wallet).toBe(100)
       expect(resp.body.payload.status).toBe(true)
       expect(resp.body.payload.type).toBe('regular')
+  })
+
+  it('Login user /api/user/signin', async ()=>{
+
+    const resp = await request(app).post('/api/user/signin').send({email: 'ana@gmail.com', password: '123'})
+
+    expect(resp.status).toBe(200)
+    expect(resp.headers['content-type']).toContain('json')
+    expect(resp.body.payload.email).toBe('ana@gmail.com')
+    expect(resp.body.payload.firstName).toBe('ana')
   })
 
 

@@ -12,18 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewUser = exports.getTest = void 0;
+exports.logout = exports.singinUser = exports.createNewUser = exports.getUsers = void 0;
 const user_service_1 = __importDefault(require("../services/user.service"));
 const instance = new user_service_1.default();
-const getTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { skip = 0, limit = 10 } = req.query;
     try {
-        res.send('Hello world');
+        const users = yield instance.getUsersService(Number(skip), Number(limit));
+        return res.status(200).json({
+            status: 'Success',
+            payload: users
+        });
     }
     catch (error) {
-        console.log(error);
+        res.json(error);
     }
 });
-exports.getTest = getTest;
+exports.getUsers = getUsers;
 const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, email, password } = req.body;
     try {
@@ -35,7 +40,33 @@ const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.json({ error });
+        res.json(error);
     }
 });
 exports.createNewUser = createNewUser;
+const singinUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    try {
+        const user = yield instance.singinUserService(email, password);
+        req.session.user = user;
+        return res.status(200).json({
+            status: 'Success',
+            payload: user
+        });
+    }
+    catch (error) {
+        res.json(error);
+    }
+});
+exports.singinUser = singinUser;
+const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        req.session.destroy((err) => {
+            res.redirect('/');
+        });
+    }
+    catch (error) {
+        res.json(error);
+    }
+});
+exports.logout = logout;

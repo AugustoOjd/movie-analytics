@@ -10,7 +10,7 @@ class UserModel {
         this.password = '';
         this.role = 'user';
         this.status = true;
-        this.wallet = 2000;
+        this.wallet = 100;
         this.type = 'regular';
     }
     createNewUser(firstName, email, password) {

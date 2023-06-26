@@ -128,8 +128,19 @@ class MovieService {
             }
         });
     }
-    getMovieById() {
+    getMovieById(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!id)
+                    throw new customError_model_1.default('client error', 404, 'id undefined', false);
+                const movie = yield movie_table_1.Movie.findByPk(id);
+                if (!movie)
+                    throw new customError_model_1.default('client error', 404, 'id not found', false);
+                return movie;
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
     updateMovie() {

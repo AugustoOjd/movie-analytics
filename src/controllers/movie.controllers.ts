@@ -45,24 +45,16 @@ export const createMovie = async (req: Request, res: Response)=>{
     }
 }
 
-export const getHello= async (req: Request, res: Response)=>{
-    res.send('hello world')
-}
-
 export const getMovieById = async (req: Request, res: Response)=>{
     const {id} = req.params
     try {
-
-        console.log(id)
+        
         const movie = await instace.getMovieById(Number(id))
 
-        console.log(movie)
-        
         res.status(200).json({
             status: 'Success',
             payload: movie
         })
-        res.send('hello world')
     } catch (error) {
         res.json(error)
     }

@@ -1,13 +1,12 @@
 import {Router} from 'express'
-import { createMovie, getMovies, getMovieById, getHello } from '../controllers/movie.controllers'
+import { createMovie, getMovies, getMovieById} from '../controllers/movie.controllers'
+import { validateSessionUser } from '../middlewares/validateSessionUser'
 
 const router = Router()
 
-router.get('/', getMovies)
+router.get('/', validateSessionUser, getMovies)
 
 router.get('/detail/:id', getMovieById)
-
-router.get('/hello', getHello)
 
 router.post('/', createMovie)
 

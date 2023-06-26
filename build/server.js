@@ -54,10 +54,10 @@ const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
         // await Movie.sync({force: true})
         // await SoldHistory.sync({force: true})
         // await Interactions.sync({force: true})
-        console.log('Connection has been established successfully.');
+        // console.log('Connection has been established successfully.');
     }
     catch (error) {
-        console.error('Unable to connect to the database:', error);
+        // console.log('Unable to connect to the database:', error);
     }
 });
 dbConnection();

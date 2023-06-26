@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMovie = exports.getMovies = void 0;
+exports.getMovieById = exports.createMovie = exports.getMovies = void 0;
 const movie_service_1 = __importDefault(require("../services/movie.service"));
 const instace = new movie_service_1.default();
 const getMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,3 +53,17 @@ const createMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.createMovie = createMovie;
+const getMovieById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const movie = yield instace.getMovieById(Number(id));
+        res.status(200).json({
+            status: 'Success',
+            payload: movie
+        });
+    }
+    catch (error) {
+        res.json(error);
+    }
+});
+exports.getMovieById = getMovieById;

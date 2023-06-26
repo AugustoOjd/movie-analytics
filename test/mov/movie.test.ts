@@ -33,6 +33,7 @@ describe('Movie Api', ()=>{
 
     beforeAll(async ()=>{
         await sequelize.authenticate()
+        await request(app).post('/api/user/signin').send({email: 'ana@gmail.com', password: '123'})
     })
   
     afterAll(async ()=>{
