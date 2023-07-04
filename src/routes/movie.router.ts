@@ -4,7 +4,8 @@ import { validateSessionUser } from '../middlewares/validateSessionUser'
 
 const router = Router()
 
-router.get('/', validateSessionUser, getMovies)
+// validateSessionUser,
+router.get('/', getMovies)
 
 router.get('/detail/:id', getMovieById)
 

@@ -16,7 +16,7 @@ exports.getMovieById = exports.createMovie = exports.getMovies = void 0;
 const movie_service_1 = __importDefault(require("../services/movie.service"));
 const instace = new movie_service_1.default();
 const getMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { skip = 0, limit = 10, category, vip } = req.query;
+    const { skip = 0, limit = 50, category, vip } = req.query;
     try {
         const movies = yield instace.getMovies(Number(skip), Number(limit), category === null || category === void 0 ? void 0 : category.toString(), vip);
         res.status(200).json({

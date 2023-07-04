@@ -12,74 +12,48 @@ export default class MovieService {
         this.movieModel = new MovieModel()
     }
 
-    async getMovies(skip: number, limit: number, category?: string, query?: string){
+    async getMovies(skip: number, limit: number, category?: string, query?: string,){
         try {
 
-            if(!category){
-                if(query == '1'){
+            if(category){
 
-                    const movies = await Movie.findAll({
+                if(query){
+                    const movie = await Movie.findAll({
                         where: {
-                            premium: true
+                            category: category,
+                            premium: query
                         },
                         offset: skip,
                         limit: limit
                     })
-                    if(!movies) throw new CustomError('internal error', 500, 'error get movies with category and premium true', true)
                     
-                    return movies
-                }else{
-                    
-                    const movies = await Movie.findAll({
-                        where: {
-                            premium: false
-                        },
-                        offset: skip,
-                        limit: limit
-                    })
-                    if(!movies) throw new CustomError('internal error', 500, 'error get movies with category and premium false', true)
-                    
-                    return movies
+                    return movie
                 }
-            }
 
-            if(!query){
-                if(category){
-                    const movies = await Movie.findAll({
-                        where: {
-                            category: category
-                        },
-                        offset: skip,
-                        limit: limit
-                    })
-                    if(!movies) throw new CustomError('internal error', 500, 'error get movies with category witout query', true)
-                    return movies
-                }else{
-                    const movies = await Movie.findAll({
-                        offset: skip,
-                        limit: limit
-                    })
-
-                    if(!movies) throw new CustomError('internal error', 500, 'error get movies with query without category', true)
-                    return movies
-                }
-            }
-
-            if(!category || !query){
-                const movies = await Movie.findAll({
+                const movie = await Movie.findAll({
+                    where: {
+                        category: category
+                    },
                     offset: skip,
                     limit: limit
                 })
+                
+                return movie
+            }
 
-                if(!movies) throw new CustomError('internal error', 500, 'error get movies without category and query', true)
-
-                return movies
+            if(query){
+                const movie = await Movie.findAll({
+                    where: {
+                        premium: query
+                    },
+                    offset: skip,
+                    limit: limit
+                })
+                
+                return movie
             }
 
             const movies = await Movie.findAll({
-                where:{
-                    category: category,
-                },
                 offset: skip,
                 limit: limit
             })

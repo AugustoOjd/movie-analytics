@@ -1,5 +1,5 @@
 
-export type TCategory = 'horror' | 'action' | 'humor' | 'animation' | 'drama' | 'fiction'
+export type TCategory = 'action' | 'terror' | 'drama' | 'fantasy'
 
 export interface IMovie {
     title:          string,

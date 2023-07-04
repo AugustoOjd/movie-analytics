@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const movie_controllers_1 = require("../controllers/movie.controllers");
-const validateSessionUser_1 = require("../middlewares/validateSessionUser");
 const router = (0, express_1.Router)();
-router.get('/', validateSessionUser_1.validateSessionUser, movie_controllers_1.getMovies);
+// validateSessionUser,
+router.get('/', movie_controllers_1.getMovies);
 router.get('/detail/:id', movie_controllers_1.getMovieById);
 router.post('/', movie_controllers_1.createMovie);
 exports.default = router;

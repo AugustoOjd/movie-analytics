@@ -6,7 +6,7 @@ const instace = new MovieService()
 
 export const getMovies = async (req: Request, res: Response)=>{
 
-    const {skip = 0, limit= 10, category, vip} = req.query
+    const {skip = 0, limit= 50, category, vip} = req.query
     try {
         const movies = await instace.getMovies(Number(skip), Number(limit), category?.toString(), vip as string)
 

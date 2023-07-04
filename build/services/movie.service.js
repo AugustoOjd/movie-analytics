@@ -22,68 +22,38 @@ class MovieService {
     getMovies(skip, limit, category, query) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!category) {
-                    if (query == '1') {
-                        const movies = yield movie_table_1.Movie.findAll({
+                if (category) {
+                    if (query) {
+                        const movie = yield movie_table_1.Movie.findAll({
                             where: {
-                                premium: true
+                                category: category,
+                                premium: query
                             },
                             offset: skip,
                             limit: limit
                         });
-                        if (!movies)
-                            throw new customError_model_1.default('internal error', 500, 'error get movies with category and premium true', true);
-                        return movies;
+                        return movie;
                     }
-                    else {
-                        const movies = yield movie_table_1.Movie.findAll({
-                            where: {
-                                premium: false
-                            },
-                            offset: skip,
-                            limit: limit
-                        });
-                        if (!movies)
-                            throw new customError_model_1.default('internal error', 500, 'error get movies with category and premium false', true);
-                        return movies;
-                    }
-                }
-                if (!query) {
-                    if (category) {
-                        const movies = yield movie_table_1.Movie.findAll({
-                            where: {
-                                category: category
-                            },
-                            offset: skip,
-                            limit: limit
-                        });
-                        if (!movies)
-                            throw new customError_model_1.default('internal error', 500, 'error get movies with category witout query', true);
-                        return movies;
-                    }
-                    else {
-                        const movies = yield movie_table_1.Movie.findAll({
-                            offset: skip,
-                            limit: limit
-                        });
-                        if (!movies)
-                            throw new customError_model_1.default('internal error', 500, 'error get movies with query without category', true);
-                        return movies;
-                    }
-                }
-                if (!category || !query) {
-                    const movies = yield movie_table_1.Movie.findAll({
+                    const movie = yield movie_table_1.Movie.findAll({
+                        where: {
+                            category: category
+                        },
                         offset: skip,
                         limit: limit
                     });
-                    if (!movies)
-                        throw new customError_model_1.default('internal error', 500, 'error get movies without category and query', true);
-                    return movies;
+                    return movie;
+                }
+                if (query) {
+                    const movie = yield movie_table_1.Movie.findAll({
+                        where: {
+                            premium: query
+                        },
+                        offset: skip,
+                        limit: limit
+                    });
+                    return movie;
                 }
                 const movies = yield movie_table_1.Movie.findAll({
-                    where: {
-                        category: category,
-                    },
                     offset: skip,
                     limit: limit
                 });

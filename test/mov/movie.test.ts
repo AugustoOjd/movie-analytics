@@ -69,7 +69,7 @@ describe('Movie Api', ()=>{
     })
 
     it('post movie free /api/movie', async ()=>{
-        const respFree = await request(app).post('/api/movie?vip=0').send(movieFreeMock)
+        const respFree = await request(app).post('/api/movie?vip=0').send(movieFreeMock).cookies['']
 
         expect(respFree.status).toBe(201)
         expect(respFree.headers['content-type']).toContain('json')
