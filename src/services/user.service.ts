@@ -71,7 +71,7 @@ export default class UserService {
             const validatePassword = validPassword(user, password)
 
 
-            if(!validatePassword) throw new CustomError('client error', 404, 'credentials invalid', false)
+            if(!validatePassword) throw new CustomError('client error', 404, 'invalid credentials', false)
             
             return user
 

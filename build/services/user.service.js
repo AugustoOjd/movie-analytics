@@ -73,7 +73,7 @@ class UserService {
                     throw new customError_model_1.default('client error', 404, 'user not found', false);
                 const validatePassword = (0, bcryptConfig_1.validPassword)(user, password);
                 if (!validatePassword)
-                    throw new customError_model_1.default('client error', 404, 'credentials invalid', false);
+                    throw new customError_model_1.default('client error', 404, 'invalid credentials', false);
                 return user;
             }
             catch (error) {

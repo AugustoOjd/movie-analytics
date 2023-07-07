@@ -12,7 +12,9 @@ export const getUsers = async (req: Request, res: Response)=>{
             payload: users
         })
     } catch (error) {
-        res.json(error)
+        res.json({
+            error:error
+        })
     }
 }
 
@@ -28,7 +30,9 @@ export const createNewUser = async (req: Request, res: Response)=>{
             payload: newUser
         })
     } catch (error) {
-        res.json(error)
+        res.json({
+            error:error
+        })
     }
 }
 
@@ -45,7 +49,9 @@ export const singinUser = async (req: Request, res: Response)=>{
             payload: user
         })
     } catch (error) {
-        res.json(error)
+        res.json({
+            error:error
+        })
     }
 }
 
@@ -55,6 +61,8 @@ export const logout = async (req: Request, res: Response)=>{
             res.redirect('/')
         })
     } catch (error) {
-        res.json(error)
+        res.json({
+            error:error
+        })
     }
 }

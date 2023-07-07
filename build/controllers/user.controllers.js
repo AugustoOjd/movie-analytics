@@ -25,7 +25,9 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        res.json(error);
+        res.json({
+            error: error
+        });
     }
 });
 exports.getUsers = getUsers;
@@ -40,7 +42,9 @@ const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.json(error);
+        res.json({
+            error: error
+        });
     }
 });
 exports.createNewUser = createNewUser;
@@ -55,7 +59,9 @@ const singinUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     catch (error) {
-        res.json(error);
+        res.json({
+            error: error
+        });
     }
 });
 exports.singinUser = singinUser;
@@ -66,7 +72,9 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        res.json(error);
+        res.json({
+            error: error
+        });
     }
 });
 exports.logout = logout;

@@ -9,20 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateSessionUser = void 0;
-const validateSessionUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.validateRegister = void 0;
+const validateRegister = (schema) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const body = req.body;
     try {
-        const user = req.session.user;
-        if (user) {
-            res.status(200).json(user);
-            next();
-        }
-        else {
-            res.redirect('/');
-        }
+        yield schema.validate(body);
+        return next();
     }
     catch (error) {
-        next(error);
+        return res.status(404).json(error);
     }
 });
-exports.validateSessionUser = validateSessionUser;
+exports.validateRegister = validateRegister;
