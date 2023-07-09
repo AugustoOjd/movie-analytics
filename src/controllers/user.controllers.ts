@@ -58,8 +58,9 @@ export const singinUser = async (req: Request, res: Response)=>{
 export const logout = async (req: Request, res: Response)=>{
     try {
         req.session.destroy( (err)=>{
-            res.redirect('/')
+            err
         })
+        return res.send('logout')
     } catch (error) {
         res.json({
             error:error

@@ -68,8 +68,9 @@ exports.singinUser = singinUser;
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         req.session.destroy((err) => {
-            res.redirect('/');
+            err;
         });
+        return res.send('logout');
     }
     catch (error) {
         res.json({
