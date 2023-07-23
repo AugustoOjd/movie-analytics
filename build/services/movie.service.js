@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const movie_table_1 = require("../db/models/movie.table");
+const soldHistory_table_1 = require("../db/models/soldHistory.table");
+const user_table_1 = require("../db/models/user.table");
 const customError_model_1 = __importDefault(require("../models/customError.model"));
 const movie_model_1 = __importDefault(require("../models/movie.model"));
+const soldHistory_model_1 = __importDefault(require("../models/soldHistory.model"));
 class MovieService {
     constructor() {
         this.movieModel = new movie_model_1.default();
+        this.soldHistoryModel = new soldHistory_model_1.default();
     }
     getMovies(skip, limit, category, query) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -107,6 +111,24 @@ class MovieService {
                 if (!movie)
                     throw new customError_model_1.default('client error', 404, 'id not found', false);
                 return movie;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    buyMovie(userId, movieId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield user_table_1.User.findByPk(userId);
+                if (!user)
+                    throw new customError_model_1.default('client error', 404, 'invalid user id', false);
+                const movie = yield movie_table_1.Movie.findByPk(movieId);
+                if (!movie)
+                    throw new customError_model_1.default('client error', 404, 'movie id not found', false);
+                const sold = this.soldHistoryModel.setSoldHistory(userId, movieId);
+                yield soldHistory_table_1.SoldHistory.create(Object.assign({}, sold));
+                return sold;
             }
             catch (error) {
                 throw error;

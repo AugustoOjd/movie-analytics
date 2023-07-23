@@ -59,3 +59,18 @@ export const getMovieById = async (req: Request, res: Response)=>{
         res.json(error)
     }
 }
+
+export const buyMovie = async (req: Request, res: Response)=>{
+    try {
+        const { userId, movieId } = req.params
+
+        const sold = await instace.buyMovie(Number(userId), Number(movieId))
+
+        res.status(201).json({
+            status: 'Success',
+            payload: sold
+        })
+    } catch (error) {
+        res.json({error})
+    }
+}

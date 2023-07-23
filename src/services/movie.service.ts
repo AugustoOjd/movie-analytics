@@ -1,15 +1,20 @@
 import { Movie } from '../db/models/movie.table';
+import { SoldHistory } from '../db/models/soldHistory.table';
+import { User } from '../db/models/user.table';
 import { TCategory } from '../interfaces/IMovie';
 import CustomError from '../models/customError.model';
 import MovieModel from '../models/movie.model';
+import SoldHistoryModel from '../models/soldHistory.model';
 
 export default class MovieService {
     
     private movieModel
+    private soldHistoryModel
     
     constructor(){
 
         this.movieModel = new MovieModel()
+        this.soldHistoryModel = new SoldHistoryModel()
     }
 
     async getMovies(skip: number, limit: number, category?: string, query?: string,){
@@ -116,6 +121,25 @@ export default class MovieService {
 
             return movie
 
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async buyMovie(userId: number, movieId: number){
+        try {
+
+            const user = await User.findByPk(userId)
+            if(!user) throw new CustomError('client error', 404, 'invalid user id', false)
+            
+            const movie = await Movie.findByPk(movieId)
+            if(!movie) throw new CustomError('client error', 404, 'movie id not found', false)
+
+            const sold = this.soldHistoryModel.setSoldHistory(userId, movieId)
+
+            await SoldHistory.create({...sold})
+
+            return sold
         } catch (error) {
             throw error
         }

@@ -7,4 +7,5 @@ const router = (0, express_1.Router)();
 router.get('/', movie_controllers_1.getMovies);
 router.get('/detail/:id', movie_controllers_1.getMovieById);
 router.post('/', movie_controllers_1.createMovie);
+router.post('/buy/:userId/movie/:movieId', movie_controllers_1.buyMovie);
 exports.default = router;
