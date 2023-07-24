@@ -8,25 +8,12 @@ class MovieModel {
         this.category = 'action';
         this.release = '';
         this.image = '';
+        this.stock = 30;
         this.premium = false;
         this.duration = '';
         this.seasons = 1;
     }
-    createFreeMovie(title, description, category, release, image, duration, seasons) {
-        const movie = {
-            title,
-            description,
-            price: this.price,
-            category,
-            release,
-            image,
-            premium: this.premium,
-            duration,
-            seasons
-        };
-        return movie;
-    }
-    createPremiumMovie(title, description, price, category, release, image, duration, seasons) {
+    createMovie(title, description, price, category, release, image, premium, duration, seasons) {
         const movie = {
             title,
             description,
@@ -34,7 +21,8 @@ class MovieModel {
             category,
             release,
             image,
-            premium: true,
+            stock: this.stock,
+            premium,
             duration,
             seasons
         };

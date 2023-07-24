@@ -12,30 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewUser = exports.getTest = void 0;
-const user_service_1 = __importDefault(require("../services/user.service"));
-const instance = new user_service_1.default();
-const getTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getSoldHistory = exports.setMovieHistory = void 0;
+const sold_service_1 = __importDefault(require("../services/sold.service"));
+const instance = new sold_service_1.default();
+const setMovieHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.send('Hello world');
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
-exports.getTest = getTest;
-const createNewUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { firstName, email, password } = req.body;
-    try {
-        const newUser = yield instance.createNewUserService(firstName, email, password);
-        req.session.user = newUser;
+        const { userId, movieId } = req.body;
+        const data = yield instance.setMovieHistory(Number(userId), Number(movieId));
         res.status(201).json({
-            status: 'Sucess',
-            payload: newUser
+            status: 'Success',
+            payload: data
         });
     }
     catch (error) {
         res.json({ error });
     }
 });
-exports.createNewUser = createNewUser;
+exports.setMovieHistory = setMovieHistory;
+const getSoldHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield instance.getSoldHistoryService();
+        res.status(201).json({
+            status: 'Success',
+            payload: data
+        });
+    }
+    catch (error) {
+        res.json({ error });
+    }
+});
+exports.getSoldHistory = getSoldHistory;

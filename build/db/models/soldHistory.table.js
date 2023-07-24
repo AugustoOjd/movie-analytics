@@ -15,3 +15,9 @@ exports.SoldHistory = pgConnection_1.sequelize.define('SoldHistory', {
             key: 'movieId'
         } }
 });
+exports.SoldHistory.hasMany(user_table_1.User, {
+    foreignKey: 'userId'
+});
+exports.SoldHistory.hasMany(movie_table_1.Movie, {
+    foreignKey: 'movieId'
+});

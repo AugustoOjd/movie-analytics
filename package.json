@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "jest --watchAll --no-cache --detectOpenHandles --maxWorkers=1",
+    "seed": "node ./build/seed_db",
     "dev": "nodemon ."
   },
   "keywords": [],

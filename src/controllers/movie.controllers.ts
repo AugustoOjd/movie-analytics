@@ -22,24 +22,14 @@ export const getMovies = async (req: Request, res: Response)=>{
 
 export const createMovie = async (req: Request, res: Response)=>{
 
-    const { vip } = req.query
-    const { title, description, price, category, release, image, duration, seasons } = req.body
+    const { title, description, price, category, release, image, premium, duration, seasons } = req.body
     try {
-        if (vip == '1') {
-            const movie = await instace.createPremiumMovie(title, description, price, category, release, image, duration, seasons)
+            const movie = await instace.createMovie(title, description, price, category, release, image, premium, duration, seasons)
 
             res.status(201).json({
                 status: 'Success',
                 payload: movie
             })
-        } else {
-            const movie = await instace.createFreeMovie(title, description, category, release, image, duration, seasons)
-
-            res.status(201).json({
-                status: 'Success',
-                payload: movie
-            })
-        }
     } catch (error) {
         res.json(error)
     }
@@ -57,20 +47,5 @@ export const getMovieById = async (req: Request, res: Response)=>{
         })
     } catch (error) {
         res.json(error)
-    }
-}
-
-export const buyMovie = async (req: Request, res: Response)=>{
-    try {
-        const { userId, movieId } = req.params
-
-        const sold = await instace.buyMovie(Number(userId), Number(movieId))
-
-        res.status(201).json({
-            status: 'Success',
-            payload: sold
-        })
-    } catch (error) {
-        res.json({error})
     }
 }

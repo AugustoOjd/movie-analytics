@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.buyMovie = exports.getMovieById = exports.createMovie = exports.getMovies = void 0;
+exports.getMovieById = exports.createMovie = exports.getMovies = void 0;
 const movie_service_1 = __importDefault(require("../services/movie.service"));
 const instace = new movie_service_1.default();
 const getMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,23 +30,13 @@ const getMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getMovies = getMovies;
 const createMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { vip } = req.query;
-    const { title, description, price, category, release, image, duration, seasons } = req.body;
+    const { title, description, price, category, release, image, premium, duration, seasons } = req.body;
     try {
-        if (vip == '1') {
-            const movie = yield instace.createPremiumMovie(title, description, price, category, release, image, duration, seasons);
-            res.status(201).json({
-                status: 'Success',
-                payload: movie
-            });
-        }
-        else {
-            const movie = yield instace.createFreeMovie(title, description, category, release, image, duration, seasons);
-            res.status(201).json({
-                status: 'Success',
-                payload: movie
-            });
-        }
+        const movie = yield instace.createMovie(title, description, price, category, release, image, premium, duration, seasons);
+        res.status(201).json({
+            status: 'Success',
+            payload: movie
+        });
     }
     catch (error) {
         res.json(error);
@@ -67,17 +57,3 @@ const getMovieById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getMovieById = getMovieById;
-const buyMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { userId, movieId } = req.params;
-        const sold = yield instace.buyMovie(Number(userId), Number(movieId));
-        res.status(201).json({
-            status: 'Success',
-            payload: sold
-        });
-    }
-    catch (error) {
-        res.json({ error });
-    }
-});
-exports.buyMovie = buyMovie;

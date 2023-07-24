@@ -23,9 +23,11 @@ const pgConnection_1 = require("./db/pgConnection");
 const user_table_1 = require("./db/models/user.table");
 const movie_table_1 = require("./db/models/movie.table");
 const soldHistory_table_1 = require("./db/models/soldHistory.table");
-const interactions_table_1 = require("./db/models/interactions.table");
+const interactionsHistory_table_1 = require("./db/models/interactionsHistory.table");
 const user_router_1 = __importDefault(require("./routes/user.router"));
 const movie_router_1 = __importDefault(require("./routes/movie.router"));
+const sold_router_1 = __importDefault(require("./routes/sold.router"));
+const interaction_router_1 = __importDefault(require("./routes/interaction.router"));
 const app = (0, express_1.default)();
 const port = 8080;
 app.use(express_1.default.json());
@@ -42,18 +44,20 @@ app.use(body_parser_1.default.json());
 // routes
 app.use('/api/user', user_router_1.default);
 app.use('/api/movie', movie_router_1.default);
+app.use('/api/sold', sold_router_1.default);
+app.use('/api/interacion', interaction_router_1.default);
 // dbconnection
 const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield pgConnection_1.sequelize.authenticate();
-        yield user_table_1.User.sync();
-        yield movie_table_1.Movie.sync();
-        yield soldHistory_table_1.SoldHistory.sync();
-        yield interactions_table_1.Interactions.sync();
-        // await User.sync({force: true})
-        // await Movie.sync({force: true})
-        // await SoldHistory.sync({force: true})
-        // await Interactions.sync({force: true})
+        // await User.sync()
+        // await Movie.sync()
+        // await SoldHistory.sync()
+        // await Interactions.sync()
+        yield user_table_1.User.sync({ force: true });
+        yield movie_table_1.Movie.sync({ force: true });
+        yield soldHistory_table_1.SoldHistory.sync({ force: true });
+        yield interactionsHistory_table_1.Interactions.sync({ force: true });
         // console.log('Connection has been established successfully.');
     }
     catch (error) {

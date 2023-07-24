@@ -11,6 +11,7 @@ exports.Movie = pgConnection_1.sequelize.define('Movie', {
     category: { type: sequelize_1.DataTypes.STRING, allowNull: false },
     release: { type: sequelize_1.DataTypes.STRING, allowNull: false },
     image: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    stock: { type: sequelize_1.DataTypes.BIGINT, allowNull: false },
     premium: { type: sequelize_1.DataTypes.BOOLEAN, allowNull: false },
     duration: { type: sequelize_1.DataTypes.STRING, allowNull: false },
     seasons: { type: sequelize_1.DataTypes.STRING, allowNull: false },

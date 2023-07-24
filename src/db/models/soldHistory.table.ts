@@ -13,3 +13,12 @@ export const SoldHistory = sequelize.define('SoldHistory', {
         key: 'movieId'
     }}
 })
+
+SoldHistory.hasMany(User, {
+    foreignKey: 'userId'
+})
+
+SoldHistory.hasMany(Movie, {
+    foreignKey: 'movieId'
+})
+

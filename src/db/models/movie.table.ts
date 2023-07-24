@@ -9,6 +9,7 @@ export const Movie = sequelize.define('Movie', {
     category:   { type: DataTypes.STRING, allowNull: false},
     release:    { type: DataTypes.STRING, allowNull: false},
     image:      { type: DataTypes.STRING, allowNull: false},
+    stock:      { type: DataTypes.BIGINT, allowNull: false},
     premium:    { type: DataTypes.BOOLEAN, allowNull: false},
     duration:   { type: DataTypes.STRING, allowNull: false},
     seasons:    { type: DataTypes.STRING, allowNull: false},

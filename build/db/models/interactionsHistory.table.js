@@ -15,3 +15,9 @@ exports.Interactions = pgConnection_1.sequelize.define('Interactions', {
             key: 'movieId'
         } }
 });
+exports.Interactions.hasMany(user_table_1.User, {
+    foreignKey: 'userId'
+});
+exports.Interactions.hasMany(movie_table_1.Movie, {
+    foreignKey: 'movieId'
+});

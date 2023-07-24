@@ -72,38 +72,19 @@ export default class MovieService {
         }
     }
 
-    async createFreeMovie(title: string, description: string, category: TCategory, release: string, image: string, duration: string, seasons: number){
+    async createMovie(title: string, description: string, price: number, category: TCategory, release: string, image: string, premium: boolean, duration: string, seasons: number){
         try {
 
-            if(!title || !description || !category || !release || !image || !duration || !seasons) 
+            if(!title || !description || !price || !category || !release || !image || !duration || !seasons) 
                 throw new CustomError('client error', 404, 'inputs are require', true)
 
-            const newFreeMovie = this.movieModel.createFreeMovie(title, description, category, release, image, duration, seasons)
+            const newMovie = this.movieModel.createMovie(title, description, price, category, release, image, premium, duration, seasons)
 
-            if(!newFreeMovie) throw new CustomError('internal error', 500, 'model free movie error', true)
+            if(!newMovie) throw new CustomError('internal error', 500, 'model create movie error', true)
 
-            await Movie.create({...newFreeMovie})
+            await Movie.create({...newMovie})
 
-            return newFreeMovie
-
-        } catch (error) {
-            throw error
-        }
-    }
-
-    async createPremiumMovie(title: string, description: string, price: number, category: TCategory, release: string, image: string, duration: string, seasons: number){
-        try {
-            
-            if(!title || !description || !price || !category || !release || !image || !duration || !seasons) 
-            throw new CustomError('client error', 404, 'inputs are require', true)
-
-        const newPremiumMovie = this.movieModel.createPremiumMovie(title, description, price, category, release, image, duration, seasons)
-
-        if(!newPremiumMovie) throw new CustomError('internal error', 500, 'model free movie error', true)
-
-        await Movie.create({...newPremiumMovie})
-
-        return newPremiumMovie
+            return newMovie
 
         } catch (error) {
             throw error
@@ -126,24 +107,7 @@ export default class MovieService {
         }
     }
 
-    async buyMovie(userId: number, movieId: number){
-        try {
 
-            const user = await User.findByPk(userId)
-            if(!user) throw new CustomError('client error', 404, 'invalid user id', false)
-            
-            const movie = await Movie.findByPk(movieId)
-            if(!movie) throw new CustomError('client error', 404, 'movie id not found', false)
-
-            const sold = this.soldHistoryModel.setSoldHistory(userId, movieId)
-
-            await SoldHistory.create({...sold})
-
-            return sold
-        } catch (error) {
-            throw error
-        }
-    }
 
     async updateMovie(){
 

@@ -9,15 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateRegister = void 0;
-const validateRegister = (schema) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    try {
-        yield schema.validate(body);
-        return next();
-    }
-    catch (error) {
-        return res.status(404).json(error);
-    }
+const movie_seed_db_1 = require("./movie_seed_db");
+const user_seed_db_1 = require("./user_seed_db");
+const addData = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, movie_seed_db_1.addMovieData)();
+    yield (0, user_seed_db_1.addUserData)();
 });
-exports.validateRegister = validateRegister;
+addData();
